@@ -210,23 +210,29 @@ function squareClicked(id){
                 legalMoves();
             }
         } 
-        else{
-            p2 = parseInt(id);
-            if(p2 != p1){
-                if(currentBoard[p1-1] == currentBoard[p1-1].toUpperCase()){
-                    currentPiece = currentPiece.toLowerCase();
-                    currentBoard[p2-1] =  currentBoard[p1-1];
-                    currentBoard[p1-1] = "x";
-                    boardSetup();
+        else {
+            if(currentBoard[id-1] != currentBoard[id-1].toUpperCase()){
+                p2 = parseInt(id);
+                if(p2 != p1){
+                    if(currentBoard[p1-1] == currentBoard[p1-1].toUpperCase()){
+                        currentPiece = currentPiece.toLowerCase();
+                        currentBoard[p2-1] =  currentBoard[p1-1];
+                        currentBoard[p1-1] = "x";
+                        boardSetup();
+                    }
+                    p1 = 0;
+                    p2 = 0;
                 }
-                p1 = 0;
-                p2 = 0;
+                else if(p1 == p2){
+                    p1 = 0;
+                    p2 = 0;
+                }
             }
-            else if(p1 == p2){
+            else if(currentBoard[id-1] == currentBoard[id-1].toUpperCase()){
                 p1 = 0;
-                p2 = 0;
             }
         }
+        
     }
 }
 
