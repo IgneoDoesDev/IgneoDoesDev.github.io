@@ -54,7 +54,51 @@ let prevPosition = 0;
 let kingCheck = false;
 
 function hintRequested(){
-    document.getElementById("hintDisplayContent").innerHTML = puzzleInfo[2][randomPuzzle-1][move-1];
+    if(puzzleCompleted == false){
+        document.getElementById("hintDisplayContent").innerHTML = puzzleInfo[2][randomPuzzle-1][move-1];
+    }
+    else{
+        hideDots();
+    p1 = 0;
+    p2 = 0;
+    currentBoardPosition = 0;
+    totalBoardPositions = 0;
+    boardPositions = [];
+    prevMovesStr = "";
+    boardMoves = true;
+    puzzleCompleted = false;
+    prevRating = playerRating;
+    currentBoard = puzzleBoards[randomPuzzle-1].slice();
+    for(let i=0;i<4;i++){
+        allSolutionsResponses[1][i] = allSolutionsResponses[0][i][randomPuzzle-1].slice();
+    }
+    correct = true;
+    boardSetup();
+    document.getElementById("ratingContent").innerHTML = "Puzzle Rating:<br>" + puzzleInfo[0][randomPuzzle-1];
+    document.getElementById("puzzleID").innerHTML = puzzleInfo[1][randomPuzzle-1] + " | Moves Correct: " + "0/" + allSolutionsResponses[0][0][randomPuzzle-1].length;
+    document.getElementById("pRatingContent").innerHTML = "Player Rating:<br>" + playerRating;
+    document.getElementById("hintDisplayContent").innerHTML = "Hint Will Display Here";
+    document.getElementById("puzzleStatusContent").innerHTML = "Puzzle Status:<br>In Progress";
+    document.getElementById("hintButtonBoxRight").style.backgroundColor = "black";
+    document.getElementById("prevMovesContent").innerHTML = "Previous Moves Will Display Here";
+    lines = 1;
+    prevMovesPadding = 68 - 12 * lines;
+    let paddingString = "";
+    paddingString = prevMovesPadding.toString();
+    document.getElementById("prevMovesContent").style.marginTop = paddingString + "px";
+    document.getElementById("skipContentText").innerHTML = "Skip<br>Puzzle";
+    document.getElementById("hintDisplayContent").innerHTML = "Hint Will Display Here";
+    document.getElementById("hintButtonContent").value = "Click To Show Hint";
+    lines = 0;
+    move = 1;
+    moveCount = 0;
+    hintShown = false;
+    playerRating = prevRating;
+    document.getElementById("pRatingContent").innerHTML = "Player Rating:<br>" + playerRating;
+    turn = "w";
+    p1 = 0;
+    p2 = 0;
+    }
 } 
 
 function puzzleSetup(){
@@ -103,8 +147,8 @@ function puzzleSetup(){
 
 function puzzleComplete(){
     document.getElementById("skipContentText").innerHTML = "Next<br>Puzzle";
-    document.getElementById("hintDisplayContent").innerHTML = "Solution Will Display Here";
-    document.getElementById("hintButtonContent").value = "Click To Show Solution";
+    document.getElementById("hintDisplayContent").innerHTML = "Solution: " + puzzleInfo[2][randomPuzzle-1][move-1];
+    document.getElementById("hintButtonContent").value = "Retry Puzzle";
     puzzleCompleted = true;
     if(correct == true){
         boardMoves = false;
